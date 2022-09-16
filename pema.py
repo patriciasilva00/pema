@@ -642,6 +642,89 @@ def getMoods():
             print("")
             print("invalid")
 
+def getConcerts():
+
+    try:
+
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            cursor = connection.cursor()
+            cursor.execute("select database();")
+            record = cursor.fetchone()
+            query = "SELECT * FROM concerts;"
+            cursor.execute(query)
+            records = cursor.fetchall()
+
+            for row in records:
+                
+                print(row[0], "- ", row[1])
+
+            cursor.close()
+
+            i = input()
+
+            if "1" in i or "2" in i or "3" in i or "4" in i or "5" in i or "6" in i or "7" in i or "8" in i or "9" in i or "0" in i:
+
+                i = int(i)
+
+            else:
+
+                i = i.lower()
+
+            if i != "thank you":
+
+                db_Info = connection.get_server_info()
+                cursor = connection.cursor()
+                cursor.execute("select database();")
+                record = cursor.fetchone()
+                query = "SELECT * FROM concerts;"
+                cursor.execute(query)
+                records = cursor.fetchall()
+
+                for row in records:
+
+                    row1 = row[1].lower()
+
+                    if i == row[0] or str(i) == row1:
+
+                        print("Artist: ", row[1])
+                        print("Date: ", row[2])
+                        print("Your Rating: ", row[3])
+                        print("Notes: ", row[4])
+                        print("")
+                        break
+
+                    elif i != row[0] and str(i) != row1:
+
+                        res = isinstance(i, str)
+
+                        if res == True:
+                        
+                            if i != row1 and i in row1:
+
+                                print("Artist: ", row[1])
+                                print("Date: ", row[2])
+                                print("Your Rating: ", row[3])
+                                print("Notes: ", row[4])
+                                print("")
+                                print("")
+
+                    else:
+
+                        print("invalid")
+                
+                cursor.close()
+            
+
+    except mysql.connector.Error as error:
+
+        print("Failed to get record from MySQL table: {}".format(error))
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
 print("Hi, my name is Jared. How can I help you?")
 print("")
 print("1. New")
@@ -665,53 +748,61 @@ while True:
         print("5. Calendar")
         print("6. Movies")
         print("7. Books")
+        print("8. Concerts")
         print("0. Exit")
 
         p = input(" ")
 
-        while True:
-    
-            if p == "1":
+        while p != "0":
 
-                getMoods()
+            while True:
+        
+                if p == "1":
 
-            elif p == "2":
+                    getMoods()
 
-                print("2")
+                elif p == "2":
 
-            elif p == "3":
+                    print("2")
 
-                getPeople()
+                elif p == "3":
 
-            elif p == "4":
+                    getPeople()
 
-                print("4")
+                elif p == "4":
 
-            elif p == "5":
+                    print("4")
 
-                getDate()
-                break
+                elif p == "5":
 
-            elif p == "6":
+                    getDate()
+                    break
 
-                getMovies()
-                break
+                elif p == "6":
 
-            elif p == "7":
+                    getMovies()
+                    break
 
-                getBooks()
-                break
+                elif p == "7":
 
-            elif p == "0":
+                    getBooks()
+                    break
 
-                print("Exiting...")
-                pyttsx3.speak("Exiting...")
-                break
+                elif p == "8":
 
-            else:
+                    getConcerts()
+                    break
 
-                print("Oh, oh, that's not an option")
-                pyttsx3.speak("Oh, oh, that's not an option")
+                elif p == "0":
+
+                    print("Exiting...")
+                    pyttsx3.speak("Exiting...")
+                    break
+
+                else:
+
+                    print("Oh, oh, that's not an option")
+                    pyttsx3.speak("Oh, oh, that's not an option")
 
     elif q == "nevermind":
 
