@@ -539,11 +539,23 @@ def getBooks():
                     if i == row[0] or str(i) == row1:
 
                         print("Title: ", row[1])
+                        pyttsx3.speak("Title")
+                        pyttsx3.speak(row[1])
                         print("Author: ", row[2])
+                        pyttsx3.speak("Author")
+                        pyttsx3.speak(row[2])
                         print("Genre: ", row[3])
+                        pyttsx3.speak("Genre")
+                        pyttsx3.speak(row[3])
                         print("Release Date: ", row[4])
+                        pyttsx3.speak("Release Date")
+                        pyttsx3.speak(row[4])
                         print("Read in: ", row[5])
+                        pyttsx3.speak("Read in")
+                        pyttsx3.speak(row[5])
                         print("Your Rating: ", row[6])
+                        pyttsx3.speak("Your Rating")
+                        pyttsx3.speak(row[6])
                         print("")
                         break
 
@@ -726,13 +738,14 @@ def getConcerts():
             connection.close()
 
 print("Hi, my name is Jared. How can I help you?")
+pyttsx3.speak("Hi, my name is Jared. How can I help you?")
 print("")
 print("1. New")
 print("2. Check")
 q = input()
 #novo ou ver
 #depois opções normais
-#pyttsx3.speak("Hi, my name is Jared. How can I help you?")
+
 
 while True:
 
